@@ -1,2 +1,34 @@
 Here diffrent commands are include while practicing for exam.
 
+1. Start to make partition and add users:
+    >> add user on the user account using the following command
+        useradd -d /home/testuser testuser
+        cat /etc/group
+        passwd testuser # assign the password for user
+        cd /home 
+        mkdir testuser # make home directory for testuser
+        chown testuser:testuser testuser  # transfer ownership to the added user
+        exit  ; exit out of root user
+        su -i testuser  # change user to the testuser 
+        
+        
+  >> another way of adding user:
+      adduser testuser1
+      # add all the information along with password; make an user account
+    
+  >> in order to delete the account and all its remnants
+      userdel -r user_account
+      
+>>  add group 
+    cd /etc/
+    addgroup group_name
+    groupadd group_name
+    cat group  # see group_id 
+    newgrp group_name  # to change group 
+    chgrp group_1 group_2
+    
+>> sudo command and user previlage for sudo 
+    if you are a superuser use command 
+      sudo su -   # do not need password to login as root user
+      # change one user to another of super user 
+      sudo su - user_account_name
