@@ -32,3 +32,80 @@ Here diffrent commands are include while practicing for exam.
       sudo su -   # do not need password to login as root user
       # change one user to another of super user 
       sudo su - user_account_name
+      
+      
+>> there is a 3rd method of adding a user manually; which can be done editing vigr inside /etc/ and vipw too.
+    copy everything from skel to the useraccount.
+      
+      
+>> Manage user processes
+    #  look process
+    top or htop
+    # to see all the process on user and on the system is
+    ps 
+    ps aux
+    ps axjf  # tree format
+    # get the PID for process
+    pgrep process_name
+    ps aux | grep process_name
+    # kill process
+    kill -9 process_name # by owner of the process (9 is signal number)
+    # kill does not mean always kill the processes but is the signal sending process
+    kill -HUP process_id
+    # to change priority of the process 
+    renice priority_number PID
+>>  User account properties 
+    chfn # change different attributes of user
+    chsh # to change into different shell on user account
+    # close any of the account from login
+    chsh user_account > /bin/false
+    chsh user_account > /usr/sbin/nologin
+    
+    
+>>  Partition of disk
+    In order to see the partition on GUI
+        sudo gpated
+    To work from command line multiple disk utilities 
+        df  # see free spaces
+        sudo fdisk -l  # look into the different partition disk and memory used
+        sudo fdisk /dev/sda1   # for making partition
+            different command give different things 
+            such as m,l,p
+        hit n to start partitioning 
+    -> after partition has been completed, need to mount that partition 
+    by developing filesystem.
+    mkfs -t ext4 /dev/partition_name
+    # mount to the device by creating the disk space 
+    mkdir /mnt/name_of_dir
+    # now mount from root user as
+    mount -t ext4 /dev/partition_name /mnt/name_of_dir
+    # now unmount by 
+    umount /mnt/name_of_dir
+    # see the file system table to manage mounted file to boot 
+    sudo vim /etc/fstab
+    
+    # set up logical volume group
+    fdisk /dev/sda1   # apply on disk sda1
+       : open different option here with m hit
+       : n -> p -> 1 -> default -> default -> (type) t -> (linux LVM) 8e -> v -> w
+       : do this for multiple partition on diffrent drive
+    # make logical volume partition addding all drives
+    pvcreate sda1 sda2 sda3     # pv stands for physical volume
+    pvremove /dev/sda1 /dev/sda2 /dev/sda3
+    pvdisplay # to display physical volume
+    # make group of physical volume 
+    vgcreate myvolume 1 2 3_physical_volume
+    vgscan # read volumes
+    vgrename   # rename the physical volume
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+      
