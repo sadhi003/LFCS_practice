@@ -64,7 +64,7 @@ Here diffrent commands are include while practicing for exam.
     
 >>  Partition of disk
     In order to see the partition on GUI
-        sudo gpated
+        sudo gparted
     To work from command line multiple disk utilities 
         df  # see free spaces
         sudo fdisk -l  # look into the different partition disk and memory used
@@ -93,10 +93,82 @@ Here diffrent commands are include while practicing for exam.
     pvcreate sda1 sda2 sda3     # pv stands for physical volume
     pvremove /dev/sda1 /dev/sda2 /dev/sda3
     pvdisplay # to display physical volume
-    # make group of physical volume 
-    vgcreate myvolume 1 2 3_physical_volume
+    # make group of physical volume take only 2 and later will extend to third one 
+    vgcreate /dev/myvolume 1 2_physical_volume
     vgscan # read volumes
-    vgrename   # rename the physical volume
+    vgrename old_name new_name   # rename the physical volume
+    vgdisplay
+    # now create logical volume from 2 disk volume 
+    lvcreate --name /dev/group_name_logical --size 15G previous_volume_group
+    lvdisplay
+    lvscan
+    # now mount this disk with the filesystem
+    mkfs -t ext4 /dev/previous_volume_group/group_name_logical 
+    cd /mnt/
+    mkdir /mnt/dir_name
+    # unmount the disk 
+    unmount /mnt/directory
+    # extend the volumes
+    vgextend volume_ground include_this_volume
+    vgdisplay
+    pvscan
+    # extend the logical volume group
+    lvextend /dev/my_volume /dev/sdd1/ 
+    # resize the volume
+    e2fsck -f /dev/group_name
+    resize2fs /dev/group_name
+    
+    
+>> Swap Partition
+    # lets see the swap partition 
+    df -h
+    cat /proc/swaps
+
+    
+    
+>> Networking / packet filtering
+    iptables -L # to implement filter
+    # see the forward policy 
+    iptables -L | grep FORWARD DROP
+    iptables --flush # flush all policy
+    iptables 
+    
+    
+    
+    
+>> Setting Firewall 
+    
+    
+    
+>> Service Configuration 
+    
+    
+    
+>>  # FILE SYSTEM MONITORING 
+    # command to check the used data 
+    df 
+    df -hTi   # see the inode uses and mount point 
+    # find file and delete empty file and see inode uses after that
+    find /home -type f -empty -delete 
+    
+    # see how much space is free 
+        du -sch dir_name
+    
+    
+    
+    
+    
+>>  Interaction between servers
+      # generate public , private key inside .ssh 
+      ssh-keygen
+      ssh-copy-id user@service_ip
+      # try to ssh without password
+      ssh user@ip
+      ssh -l user ip
+    
+    
+    
+    
     
     
     
