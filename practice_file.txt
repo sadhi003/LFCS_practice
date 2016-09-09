@@ -171,9 +171,27 @@ Here diffrent commands are include while practicing for exam.
     
     
     
-    
-    
-    
+>>    The process of archiving and compressing 
+        # command that uses to archive and compress
+        1. Need to understand there are two process,
+            archive and compress; such that archive can be done and build .tar 
+            after which compress it and make .tar.gz.
+             : tar -cvf file.tar from_dir(or)/from_files
+             : tar -xvf file.tar   # in order to unarchive
+             : tar -czvf file.tar.gz from_dir/from_files
+               - c ; create the archive
+               - z ; compress the archive and make gzip
+               - v ; display process on screen or verbose
+             # extract the compress file as 
+                : tar -xzvf file_name.tar.gz
+                : tar -xzvf file_name.tar.gz -C /other_dir  # if we want to extract on other place
+            # exclude command not to include certain folder or files
+                : tar -czvf file.tar.gz file/dir_name --exclude=file_name/dir_name
+        # All of the above are for gzip, let us put some command for bzip2(.tar.bz2 or tar.bz or .tbz)
+            : tar -cjvf file_name.tar.bz files/dir_name   # the only difference is j instead of z
+            : tar -xjvf file_name.tar.gz 
+        For more information do man tar command.
+        
     
     
     
