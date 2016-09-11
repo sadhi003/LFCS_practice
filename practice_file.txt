@@ -193,7 +193,29 @@ Here diffrent commands are include while practicing for exam.
         For more information do man tar command.
         
     
-    
+>>      Manupulating the text file using different linux command
+        # use grep command for finding the word inside the text file
+        grep "\bsearch_word\b" file_name   # this command is useful when search word is case sensitive
+        grep -iw "search_word" file_name   # this command is not sensitive to the case
+        grep -viw "search_word" file_name   # to remove the lines that contain the word from file
+        grep -iw "word_1\|word_2\|word_3" file_name  # to search multiple word in a same time(case not sensitive)
+        grep '\([0-9]\) *\1'    # to get repeted number from 0 to 9
+        
+        # sed command in order to replace some text or content with another one
+        sed 's/\bthe_word\b/other_word/'   # replace the first case sensitive word with the second one
+        sed 's/the_word/other_word/Ig'   # case insensitive replace for all other word
+        sed 's/thy/{&}/Ig'    # rapping up for thy word in the file case insensitive
+        sed 's/[0-9]\+ /**** /g'    # replace number with * except last four which is not followed by space
+        sed -r 's/(.{4}) (.{4}) (.{4}) (.{4})/\4 \3 \2 \1/g'  # reverse the credit card number
+        # awk command used for manipulating text file
+        awk 'NF<4{print"Not all scores are available for "$1}'   # if all the column are not same size in the different row
+        awk 'NF<number_of_col' | wc -l   # count number of rows which have less than 4 columns.
+        awk '{if (($2+$3+$4)/3 >=50) print $1,": Pass"; else print $1,": Fail"}'  # awk example
+        # paste command
+        : combine three row into one and consequetly
+        paste - - -
+        paste -d';' -s
+        
     
     
       
