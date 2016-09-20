@@ -18,6 +18,8 @@ Here diffrent commands are include while practicing for exam.
     
   >> in order to delete the account and all its remnants
       userdel -r user_account
+      # add useraccount to the existing group
+      usermod -aG username group_name
       
 >>  add group 
     cd /etc/
@@ -32,6 +34,10 @@ Here diffrent commands are include while practicing for exam.
       sudo su -   # do not need password to login as root user
       # change one user to another of super user 
       sudo su - user_account_name
+      # become root user 
+      su -
+      # change password for root without knowing root password
+      sudo passwd root 
       
       
 >> there is a 3rd method of adding a user manually; which can be done editing vigr inside /etc/ and vipw too.
@@ -89,6 +95,18 @@ Here diffrent commands are include while practicing for exam.
        : open different option here with m hit
        : n -> p -> 1 -> default -> default -> (type) t -> (linux LVM) 8e -> v -> w
        : do this for multiple partition on diffrent drive
+       
+#   SWAP partition
+    # Here we are going to make swap partitions
+        # check partition with different commands
+        : free -h or df -h
+        # where to make swap partition; if already exist unable and remove from fstab
+        : swapoff -a 
+        # start making swap partitions
+        : fsdisk /dev/sda1
+        : n -> p -> 1 -> default -> default -> t -> 82 -> w
+        : mkswap /dev/sdaswap1
+        : swapon /dev/sdaswap1
     # make logical volume partition addding all drives
     pvcreate sda1 sda2 sda3     # pv stands for physical volume
     pvremove /dev/sda1 /dev/sda2 /dev/sda3
@@ -185,11 +203,15 @@ Here diffrent commands are include while practicing for exam.
              # extract the compress file as 
                 : tar -xzvf file_name.tar.gz
                 : tar -xzvf file_name.tar.gz -C /other_dir  # if we want to extract on other place
+            # change owenership of the compressed file
+                : sudo chown user:user dir_name/ -R   # change ownership of all the file recusively 
+            # add file on the archive file 
+                tar rvf file_name.tar new_file 
             # exclude command not to include certain folder or files
-                : tar -czvf file.tar.gz file/dir_name --exclude=file_name/dir_name
+                : tar -czvf file.tar.gz --exclude=file_name/dir_name file/dir_name
         # All of the above are for gzip, let us put some command for bzip2(.tar.bz2 or tar.bz or .tbz)
             : tar -cjvf file_name.tar.bz files/dir_name   # the only difference is j instead of z
-            : tar -xjvf file_name.tar.gz 
+            : tar -xjvf file_name.tar.gz | grep file_name  # to look for certain file
         For more information do man tar command.
         
     
@@ -217,7 +239,34 @@ Here diffrent commands are include while practicing for exam.
         paste -d';' -s
         
     
-    
-      
+#  Package management for ubuntu
+        # install packages using 3 different ways
+            - dpkg, apt-get, aptitude
+            # dpkg commands 
+                dpkg -l # see all the install packages
+                dpkg -L package_name
+            # apt-get 
+                sudo apt-get install package_name
+                sudo apt-get remove --purge package_name 
+                sudo apt-get download package_name
+                apt-cache search package_name > make_file_of_packages
+                sudo apt-get update
+                sudo apt-get upgrade   # look for anything need to be update
+                # find about the install package
+                apt-file find package_name > info.file
+                
+                
+                
+#   environment or path for bash script
+        # give path in the bash shell
+        export PATH=$PATH:/homw/shankar/file_dir
+        # file ownership or attributes 
+        : lsattr file_name
+        : sudo chattr +a file_name  # make file appendable
+        : sudo chattr +i file_name  # make file immutable
+        
+        
+        
+        
       
       
