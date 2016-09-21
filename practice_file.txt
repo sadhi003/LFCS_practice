@@ -107,19 +107,27 @@ Here diffrent commands are include while practicing for exam.
         : n -> p -> 1 -> default -> default -> t -> 82 -> w
         : mkswap /dev/sdaswap1
         : swapon /dev/sdaswap1
+        : swapoff /dev/sdaswap1
+        : swapon -a # on the swap space persistently
     # make logical volume partition addding all drives
-    pvcreate sda1 sda2 sda3     # pv stands for physical volume
-    pvremove /dev/sda1 /dev/sda2 /dev/sda3
-    pvdisplay # to display physical volume
+    # first make partition with logical volume machine(LVM)
+    : fdisk /dev/sda1
+    : n -> p -> 1 -> default -> default -> t -> 8e -> w
+    : pvcreate sda1 sda2 sda3     # pv stands for physical volume
+    : pvremove /dev/sda1 /dev/sda2 /dev/sda3
+    : pvdisplay # to display physical volume
     # make group of physical volume take only 2 and later will extend to third one 
-    vgcreate /dev/myvolume 1 2_physical_volume
-    vgscan # read volumes
-    vgrename old_name new_name   # rename the physical volume
-    vgdisplay
+    : vgcreate /dev/myvolume 1 2_physical_volume
+    : vgscan # read volumes
+    : vgrename old_name new_name   # rename the physical volume
+    : vgdisplay
     # now create logical volume from 2 disk volume 
-    lvcreate --name /dev/group_name_logical --size 15G previous_volume_group
-    lvdisplay
-    lvscan
+    : lvcreate --name /dev/group_name_logical --size 15G previous_volume_group
+    or 
+    : lvcreate -n /dev/swap -L 500M /dev/my_volume_group
+    : mkswap /dev/my_volume_group/swap   # format the logical volume space 
+    : lvdisplay
+    : lvscan
     # now mount this disk with the filesystem
     mkfs -t ext4 /dev/previous_volume_group/group_name_logical 
     cd /mnt/
